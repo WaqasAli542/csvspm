@@ -1,0 +1,24 @@
+{
+    "wmz_csvspm": {
+        "column": {
+            "csvspm_id": true,
+            "store_view": true,
+            "customer_group": true,
+            "payment_methods": true,
+            "shipping_methods": true,
+            "status": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "index": {
+            "WMZ_CSVSPM_PAYMENT_METHODS": true,
+            "WMZ_CSVSPM_CUSTOMER_GROUP": true,
+            "WMZ_CSVSPM_STORE_VIEW": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "WMZ_CSVSPM_STORE_VIEW_STORE_STORE_ID": true,
+            "WMZ_CSVSPM_CSTR_GROUP_CSTR_GROUP_CSTR_GROUP_ID": true
+        }
+    }
+}

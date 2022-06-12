@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="wmz_csvspm" resource="default" engine="innodb" comment="WMZ CSVSPM Configuration Table">
+        <column xsi:type="int" name="csvspm_id" padding="11" unsigned="true" nullable="false" identity="true"
+                comment="CSVSPM ID"/>
+        <column xsi:type="smallint" name="store_view" unsigned="true" nullable="false" comment="Store View"/>
+        <column xsi:type="int" name="customer_group" padding="10" unsigned="true" nullable="false"
+                comment="Customer Group"/>
+        <column xsi:type="varchar" name="payment_methods" nullable="false" length="255" comment="Payment Methods"/>
+        <column xsi:type="varchar" name="shipping_methods" nullable="false" length="255" comment="Shipping Methods"/>
+        <column xsi:type="boolean" name="status" nullable="false" default="1" comment="Status"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Creation Time"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Update Time"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="csvspm_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="CSVSPM_CONFIGURATION_CSVSPM_ID_STORE_STORE_ID"
+                    table="wmz_csvspm" column="store_view" referenceTable="store" referenceColumn="store_id"
+                    onDelete="CASCADE"/>
+        <constraint xsi:type="foreign" referenceId="CSVSPM_CONFIGURATION_CSVSPM_ID_CUSTOMER_GROUP_CUSTOMER_GROUP_ID"
+                    table="wmz_csvspm" column="customer_group" referenceTable="customer_group"
+                    referenceColumn="customer_group_id" onDelete="CASCADE"/>
+        <index referenceId="CSVSPM_CONFIGURATION_PAYMENT_METHOD" indexType="fulltext">
+            <column name="payment_methods"/>
+        </index>
+        <index referenceId="CSVSPM_CONFIGURATION_CUSTOMER_GROUP" indexType="btree">
+            <column name="customer_group"/>
+        </index>
+        <index referenceId="CSVSPM_CONFIGURATION_STORE_VIEW" indexType="btree">
+            <column name="store_view"/>
+        </index>
+    </table>
+</schema>

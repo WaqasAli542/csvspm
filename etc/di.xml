@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="WMZ\CSVSPM\Api\Data\CSVSPMConfigurationResultsInterface"
+                type="WMZ\CSVSPM\Model\CSVSPMConfigurationResults"/>
+    <preference for="WMZ\CSVSPM\Api\CSVSPMConfigurationRepositoryInterface"
+                type="WMZ\CSVSPM\Model\CSVSPMConfigurationRepository"/>
+    <preference for="WMZ\CSVSPM\Api\Data\CSVSPMConfigurationInterface"
+                type="WMZ\CSVSPM\Model\CSVSPMConfiguration"/>
+    <virtualType name="WMZ\CSVSPM\Model\Api\SearchCriteria\ConfigurationCollectionProcessor"
+                 type="Magento\Framework\Api\SearchCriteria\CollectionProcessor">
+        <arguments>
+            <argument name="processors" xsi:type="array">
+                <item name="filters" xsi:type="object">
+                    Magento\Framework\Api\SearchCriteria\CollectionProcessor\FilterProcessor
+                </item>
+                <item name="sorting" xsi:type="object">
+                    Magento\Framework\Api\SearchCriteria\CollectionProcessor\SortingProcessor
+                </item>
+                <item name="pagination" xsi:type="object">
+                    Magento\Framework\Api\SearchCriteria\CollectionProcessor\PaginationProcessor
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="WMZ\CSVSPM\Model\CSVSPMConfigurationRepository">
+        <arguments>
+            <argument name="collectionProcessor" xsi:type="object">
+                WMZ\CSVSPM\Model\Api\SearchCriteria\ConfigurationCollectionProcessor
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="CSVSPMConfigurationGridFilterPool"
+                 type="WMZ\CSVSPM\Ui\Component\Listing\Filter\FilterPool">
+        <arguments>
+            <argument name="appliers" xsi:type="array">
+                <item name="regular" xsi:type="object">
+                    Magento\Framework\View\Element\UiComponent\DataProvider\RegularFilter
+                </item>
+                <item name="fulltext" xsi:type="object">
+                    Magento\Framework\View\Element\UiComponent\DataProvider\FulltextFilter
+                </item>
+                <item name="customFilter" xsi:type="object">WMZ\CSVSPM\Ui\Component\Listing\Filter\CustomFilter
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="CSVSPMCollectionFactory"
+                 type="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="csvspm_configuration_listing_data_source" xsi:type="string">
+                    WMZ\CSVSPM\Model\ResourceModel\CSVSPMConfiguration\Grid\Collection
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="CSVSPMReportingInterface"
+                 type="Magento\Framework\View\Element\UiComponent\DataProvider\Reporting">
+        <arguments>
+            <argument name="collectionFactory" xsi:type="object">CSVSPMCollectionFactory</argument>
+            <argument name="filterPool" xsi:type="object">CSVSPMConfigurationGridFilterPool</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="CSVSPMGridDataProvider"
+                 type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="reporting" xsi:type="object">CSVSPMReportingInterface</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="WMZ\CSVSPM\Model\ResourceModel\CSVSPMConfiguration\Grid\Collection"
+                 type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">wmz_csvspm</argument>
+            <argument name="resourceModel" xsi:type="string">WMZ\CSVSPM\Model\ResourceModel\CSVSPMConfiguration
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="WMZ\CSVSPM\Ui\Component\Form\Modifier\Pool" type="Magento\Ui\DataProvider\Modifier\Pool">
+        <arguments>
+            <argument name="modifiers" xsi:type="array">
+                <item name="sp_methods" xsi:type="array">
+                    <item name="class" xsi:type="string">WMZ\CSVSPM\Ui\Component\Form\Modifier\SPMethods</item>
+                    <item name="sortOrder" xsi:type="number">10</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="csvspm_configuration_listing_data_source" xsi:type="string">
+                    WMZ\CSVSPM\Model\ResourceModel\CSVSPMConfiguration\Grid\Collection
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="WMZ\CSVSPM\Ui\Component\Form\CSVSPMDataProvider">
+        <arguments>
+            <argument name="pool" xsi:type="object">WMZ\CSVSPM\Ui\Component\Form\Modifier\Pool</argument>
+        </arguments>
+    </type>
+    <virtualType name="WMZ\CSVSPM\Ui\Component\Listing\Column\Store"
+                 type="Magento\Store\Ui\Component\Listing\Column\Store">
+        <arguments>
+            <argument name="storeKey" xsi:type="string">store_view</argument>
+        </arguments>
+    </virtualType>
+</config>

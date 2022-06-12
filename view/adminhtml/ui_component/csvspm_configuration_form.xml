@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">csvspm_configuration_form.csvspm_configuration_form_data_source
+            </item>
+            <item name="deps" xsi:type="string">csvspm_configuration_form.csvspm_configuration_form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">CSVSPM</item>
+        <item name="config" xsi:type="array">
+            <item name="dataScope" xsi:type="string">data</item>
+            <item name="namespace" xsi:type="string">csvspm_configuration_form</item>
+        </item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+        <item name="buttons" xsi:type="array">
+            <item name="back" xsi:type="string">WMZ\CSVSPM\Block\Adminhtml\Configuration\Edit\BackButton</item>
+            <item name="reset" xsi:type="string">WMZ\CSVSPM\Block\Adminhtml\Configuration\Edit\ResetButton</item>
+            <item name="save" xsi:type="string">WMZ\CSVSPM\Block\Adminhtml\Configuration\Edit\SaveButton</item>
+        </item>
+    </argument>
+    <dataSource name="csvspm_configuration_form_data_source">
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+        <settings>
+            <submitUrl path="*/*/save"/>
+        </settings>
+        <dataProvider class="WMZ\CSVSPM\Ui\Component\Form\CSVSPMDataProvider"
+                      name="csvspm_configuration_form_data_source">
+            <settings>
+                <requestFieldName>csvspm_id</requestFieldName>
+                <primaryFieldName>csvspm_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+
+    <fieldset name="csvspm_configuration">
+        <settings>
+            <label translate="true">CSVSPM Configuration Information</label>
+        </settings>
+        <field name="status" formElement="select">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">csvspm</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <dataType>text</dataType>
+                <label translate="true">Status</label>
+            </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <options class="WMZ\CSVSPM\Model\Source\Status"/>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+        <field name="customer_group" formElement="select">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">csvspm</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <dataType>text</dataType>
+                <label translate="true">Customer Group</label>
+            </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <options class="WMZ\CSVSPM\Model\Source\CustomerGroup"/>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+    </fieldset>
+</form>

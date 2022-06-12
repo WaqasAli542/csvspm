@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="csvspm" translate="label" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>CSVSPM</label>
+            <tab>wmz</tab>
+            <resource>WMZ_CSVSPM::config</resource>
+            <group id="csvspmGroup" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>CSVSPM Configuration</label>
+                <field id="csvspmField" translate="label" type="select" sortOrder="1" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>CSVSPM Fallback</label>
+                    <source_model>WMZ\CSVSPM\Model\Config\Source\CSVSPMConfig</source_model>
+                    <comment>
+                        This configuration applies for those customer whose customer group and store view combo doesn't exist in CSVSPM grid.
+                        Enabling this will let the site show payment/shipping method as per their general enable/disable config.
+                        Disabling this config will only show payment/shipping method saved in CSVSPM configuration to the customer.
+                    </comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

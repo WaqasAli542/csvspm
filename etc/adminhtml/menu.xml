@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="WMZ_CSVSPM::menu"
+             title="CSVSPM"
+             module="WMZ_CSVSPM"
+             sortOrder="10"
+             parent="WMZ_Core::wmz"
+             resource="WMZ_CSVSPM::menu"/>
+        <add id="WMZ_CSVSPM::CSVSPM_Configuration"
+             title="CSVSPM"
+             module="WMZ_CSVSPM"
+             sortOrder="20"
+             parent="WMZ_CSVSPM::menu"
+             action="csvspm/configuration/"
+             resource="WMZ_CSVSPM::menu"/>
+        <add id="WMZ_CSVSPM::configuration"
+             title="Configuration"
+             module="WMZ_CSVSPM"
+             sortOrder="30"
+             action="adminhtml/system_config/edit/section/csvspm"
+             resource="WMZ_CSVSPM::config"
+             parent="WMZ_CSVSPM::CSVSPM_Configuration"
+        />
+    </menu>
+</config>
